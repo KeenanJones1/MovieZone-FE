@@ -14,7 +14,6 @@ const Search = ({setMovies, likesCount}) => {
 
 const movieFetch = (data) => {
  const movieQueries = []
- let results 
  const uuid = localStorage.getItem('uuid')
   data.titles.map( query => movieQueries.push(query.id))
   const options = {
@@ -23,11 +22,11 @@ const movieFetch = (data) => {
    headers: {'Content-Type': 'application/json'},
    params: {queries: movieQueries, uuid: uuid}
   }
-  axios.request(options).then((resp) => {
-   setSeenMovies(resp.data.movies)
-  }).catch((error) => console.log(error))
+
+  axios.request(options).then((resp) => 
+   likesCount(resp.data.movies)
+  ).catch((error) => console.log(error))
   setMovies(data.titles)
-  likesCount(seenMovies)
 }
  
 
@@ -43,6 +42,7 @@ const movieFetch = (data) => {
     'x-rapidapi-host': process.env.REACT_APP_API_HOST
    }
   }
+
   axios.request(options).then(function (response) {
    movieFetch(response.data)
   }).catch(function (error) {
@@ -50,22 +50,16 @@ const movieFetch = (data) => {
   });
  }
 
- useEffect(() => {
-  console.log('Hello')
- })
 
- const userMovies = (movies) => {
-  // recieves user movies liked and disliked 
 
- }
 
 
 
  return (
   <Wrapper>
-   <form action="">
+   <form onSubmit={(event) => handleForm(event)}>
     <input type="text" onChange={(event) => setTitle(event.target.value)}/>
-    <input type="submit" value="submit" onClick={(event) => handleForm(event)}/>
+    <input type="submit" value="submit" />
    </form>
   </Wrapper>
  )

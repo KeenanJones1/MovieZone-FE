@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState, useEffect} from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import {colors} from '../utils/_var'
@@ -58,6 +58,15 @@ const Wrapper = styled.div`
    padding-left: 1em;
   }
 
+  .icon-liked{
+   color: ${colors.$primary}
+  }
+
+  .icon-disliked{
+   color: ${colors.$primary}
+  }
+
+
   .icons:hover{
    color: ${colors.$primary};
   }
@@ -66,6 +75,7 @@ const Wrapper = styled.div`
 `
 
 const Movie = ({movie}) => {
+ const [liked, setLiked] = useState(false);
 
  const handleThumbs = (id, name) => {
   const uuid = localStorage.getItem('uuid')
@@ -76,11 +86,18 @@ const Movie = ({movie}) => {
    data: {uuid: uuid, query: movie.id, thumbs: name, title: movie.title}
   }
   axios.request(options).then((resp) =>{
-   console.log(resp.data)
+   updateMovie(resp.data)
+
   }).catch((err) => console.log(err))
  }
 
- console.log(movie)
+ const updateMovie = (updatedMovie) => {
+  console.log(updatedMovie, 'hey')
+  movie.like_count = updatedMovie.up_count
+  movie.down_count = updatedMovie.down_count
+ }
+
+console.log(movie)
  return (
   <Wrapper>
    <div className="img-container">
@@ -94,10 +111,10 @@ const Movie = ({movie}) => {
     <div className="movie-thumbs">
      {/* highlight icon if user has liked or disliked in the past */}
       <p>{movie.like_count}</p>
-      <FontAwesomeIcon icon={faThumbsUp} className="icons" onClick={() => handleThumbs(movie.id, 'up')}/>
+      <FontAwesomeIcon icon={faThumbsUp} className={movie.liked ? 'icon-liked' : 'icons'} onClick={() => handleThumbs(movie.id, 'up')}/>
 
-  <p>{movie.down_count || movie.dislike_count}</p>
-     <FontAwesomeIcon icon={faThumbsDown} className="icons" onClick={() => handleThumbs(movie.id, 'down')}/>
+  <p>{movie.down_count}</p>
+     <FontAwesomeIcon icon={faThumbsDown} className={movie.disliked ? 'icon-disliked' : 'icons'} onClick={() => handleThumbs(movie.id, 'down')}/>
     </div>
    </div>
   </Wrapper>

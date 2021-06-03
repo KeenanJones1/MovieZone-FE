@@ -1,4 +1,5 @@
-import React from 'react'
+import React, {useState} from 'react'
+import axios from 'axios'
 import styled from 'styled-components'
 import Movie from './Movie'
 
@@ -39,6 +40,9 @@ const Wrapper = styled.div`
 
 
 const Catalog = ({movies, seenMovies}) => {
+  const [userMovies, setUserMovies] = useState({})
+
+  // fix showing movies count
 
   const likeCount = () => {
     for(let i = 0; i < movies.length; i++){
@@ -46,7 +50,8 @@ const Catalog = ({movies, seenMovies}) => {
       for(let j = 0; j < seenMovies.length; j++){
         if(query === seenMovies[j]['query']){
           movies[i]['like_count'] = seenMovies[j]['up_count']
-          movies[i]['down_count'] = seenMovies[j]['dislike_count']
+          movies[i]['down_count'] = seenMovies[j]['down_count']
+          console.log(movies[i])
         }else{
           movies[i]['like_count'] = 0
           movies[i]['down_count'] = 0
@@ -55,16 +60,73 @@ const Catalog = ({movies, seenMovies}) => {
     }
   }
 
+  const checkUserMovies = (liked, disliked, movies) => {
+    let liked_queries = []
+    let disliked_queries = []
+
+    setUserMovies({likes: liked, dislikes: disliked})
+
+    
+
+    for(let i = 0; liked.length > i; i++){
+      liked_queries.push(liked[i].movie.query)
+    }
+
+    for(let i = 0; disliked.length > i; i++){
+      disliked_queries.push(disliked[i].movie.query)
+    }
+
+    // for(let i = 0; movies.length > i; i++){
+    //   if(liked_queries.includes(movies[i].id)){
+    //     movies[i]['liked'] = true
+    //     movies[i]['disliked'] = false
+    //   }
+    //   else if(disliked_queries.includes(movies[i].id)){
+    //     movies[i]['disliked'] = true
+    //     movies[i]['liked'] = false
+    //   }
+    //   else{
+    //     movies[i]['liked'] = false
+    //     movies[i]['disliked'] = false
+    //   }
+    // }
+    
+  }
+
+ const getUserMovies = () => {
+  // recieves user movies liked and disliked 
+  const uuid = localStorage.getItem('uuid')
+  const options = {
+   method: 'GET',
+   url: `http://localhost:3000/users/${uuid}/`,
+   headers: {'Content-Type': 'application/json'},
+  }
+    axios.request(options).then((resp) =>{
+     checkUserMovies(resp.data.likes, resp.data.dislikes, movies)
+    }).catch((err) => console.log(err))
+ }
+
+
+
+
+
+
  const renderMovies = () => {
-  //  check if movies were liked or disliked in the past.
-  // after function completes send function to end loading animation
+  //  console.log(userMovies)
   likeCount()
+  if(!userMovies['likes'] || !userMovies['dislikes']){
+    getUserMovies()
+  }
+
+
+
   return movies.map(movie => 
     <Movie movie={movie} className="movie" key={movie.id} />
    )
  }
 
- console.log(movies, "Hello")
+
+
  return (
   <Wrapper>
   <div className="center">
