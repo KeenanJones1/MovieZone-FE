@@ -38,7 +38,7 @@ const Welcome = ({setWelcome}) => {
  useEffect(() => {
   const timeout = setTimeout(() => setItems(v => v.length ? [] : [{y: 0, delay:100, text: 'Welcome'}, {y: 0, delay: 300, text: 'To' }, {y: 0, delay:500, text: 'The Movie Zone'}]), 3000)
 
-  setTimeout(() => setWelcome(), 6500)
+  setTimeout(() => setWelcome(), 7000)
 
   return () => clearTimeout(timeout);
  })

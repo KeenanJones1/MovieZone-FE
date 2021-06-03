@@ -14,16 +14,15 @@ const Wrapper = styled.div`
  background-color: ${colors.$background};
 `
 
-const Header = ({setMovies}) => {
+const Header = ({setMovies, likesCount}) => {
  // make fetch here 
  // update with the movies
 
-
-
+ 
  return (
   <Wrapper>
    <h1>The Movie Zone</h1>
-   <Search />
+   <Search setMovies={setMovies} likesCount={likesCount}/>
   </Wrapper>
  )
 }

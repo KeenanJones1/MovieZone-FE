@@ -1,14 +1,16 @@
 import React, {useState, useEffect} from 'react'
 import { v4 } from 'uuid';
+import axios from 'axios'
 import styled from 'styled-components'
 import {colors} from '../utils/_var'
 import Header from './Header'
-import Catalog from './Catalog'
+import Movies from './Movies'
 
 const Wrapper = styled.div`
  background-color: ${colors.$black};
- height: 100vh;
- width: 100vw;
+ display: flex;
+ flex-direction: column;
+ min-height: 100vh;
  padding: 0;
  margin: 0;
 `
@@ -18,6 +20,7 @@ const Wrapper = styled.div`
 const Home = () => {
  const [uuid, setUuid] = useState('')
  const [movies, setMovies] = useState([])
+ const [seenMovies, setSeenMovies] = useState([])
 
  const checkLocalStorage = () => {
   let userCode = localStorage.getItem('uuid')
@@ -25,7 +28,21 @@ const Home = () => {
    setUuid(userCode)
   }else{
    userCode = v4()
+   const options = {
+    method: 'POST',
+    url: 'http://localhost:3000/users',
+    headers: {'Content-Type': 'application/json'},
+    data: {uuid: userCode}
+   }
+
    localStorage.setItem('uuid', userCode)
+
+   // start loading animation here
+
+   axios.request(options).then((response) => {
+     console.log(response.data)
+     // stop loading animation here
+   }).catch((error) => console.log(error))
    setUuid(userCode)
   }
  }
@@ -34,15 +51,17 @@ const Home = () => {
   checkLocalStorage()
  })
 
+ // add the like and dislike count to movies
+ const likesCount = (data) => {
+  setSeenMovies(data)
+ }
+
 
 
  return (
   <Wrapper>
-   {/* header*/}
-    <Header setMovies={setMovies}/>
-   {/* search */}
-    <Catalog movies={movies}/>
-   {/* movie cards using grid and media queries */}
+    <Header setMovies={setMovies} likesCount={likesCount}/>
+    <Movies movies={movies} seenMovies={seenMovies}/>
   </Wrapper>
  )
 }
