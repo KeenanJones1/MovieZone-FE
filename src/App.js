@@ -6,7 +6,8 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      welcome: false,
+      // welcome: false,
+      welcome: true,
     }
   }
 
@@ -19,7 +20,8 @@ class App extends Component {
   render() {
     return (
       <div>
-        { this.state.welcome ?  <Home /> : <Welcome setWelcome={this.setWelcome}/>}
+        {/* { this.state.welcome ?  <Home /> : <Welcome setWelcome={this.setWelcome}/>} */}
+        <Home />
       </div>
     )
   }

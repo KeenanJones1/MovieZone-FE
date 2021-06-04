@@ -56,11 +56,32 @@ const Home = () => {
   setSeenMovies(data)
  }
 
+const configMovies = (myBackendList, rapidApiList) => {
+  likesCount(myBackendList)
+  let configedMovies = []
+  for(let i = 0; i < rapidApiList.length; i++){
+    if(myBackendList.find(movie => movie['query'] === rapidApiList[i].id)){
+      let backendMovie = myBackendList.find(movie => movie['query'] === rapidApiList[i].id)
+      let tempObj = {...rapidApiList[i]}
+      tempObj['up_count'] = backendMovie['up_count']
+      tempObj['down_count'] = backendMovie['down_count']
+      configedMovies.push(tempObj)
+    }else{
+      let tempObj = {...rapidApiList[i]}
+      tempObj['up_count'] = 0
+      tempObj['down_count'] = 0
+      configedMovies.push(tempObj)
+    }
+  }
+
+  setMovies(configedMovies)
+}
+
 
 
  return (
   <Wrapper>
-    <Header setMovies={setMovies} likesCount={likesCount}/>
+    <Header configMovies={configMovies}/>
     <Movies movies={movies} seenMovies={seenMovies}/>
   </Wrapper>
  )

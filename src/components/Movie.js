@@ -92,12 +92,11 @@ const Movie = ({movie}) => {
  }
 
  const updateMovie = (updatedMovie) => {
-  console.log(updatedMovie, 'hey')
   movie.like_count = updatedMovie.up_count
   movie.down_count = updatedMovie.down_count
  }
 
-console.log(movie)
+console.log('bar')
  return (
   <Wrapper>
    <div className="img-container">
@@ -110,7 +109,7 @@ console.log(movie)
     </div>
     <div className="movie-thumbs">
      {/* highlight icon if user has liked or disliked in the past */}
-      <p>{movie.like_count}</p>
+      <p>{movie.up_count}</p>
       <FontAwesomeIcon icon={faThumbsUp} className={movie.liked ? 'icon-liked' : 'icons'} onClick={() => handleThumbs(movie.id, 'up')}/>
 
   <p>{movie.down_count}</p>

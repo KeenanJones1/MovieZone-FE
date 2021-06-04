@@ -44,30 +44,10 @@ const Catalog = ({movies, seenMovies}) => {
 
   // fix showing movies count
 
-  const likeCount = () => {
-    for(let i = 0; i < movies.length; i++){
-      let query = movies[i].id
-      for(let j = 0; j < seenMovies.length; j++){
-        if(query === seenMovies[j]['query']){
-          movies[i]['like_count'] = seenMovies[j]['up_count']
-          movies[i]['down_count'] = seenMovies[j]['down_count']
-          console.log(movies[i])
-        }else{
-          movies[i]['like_count'] = 0
-          movies[i]['down_count'] = 0
-        }
-      }
-    }
-  }
-
   const checkUserMovies = (liked, disliked, movies) => {
     let liked_queries = []
     let disliked_queries = []
-
     setUserMovies({likes: liked, dislikes: disliked})
-
-    
-
     for(let i = 0; liked.length > i; i++){
       liked_queries.push(liked[i].movie.query)
     }
@@ -76,25 +56,23 @@ const Catalog = ({movies, seenMovies}) => {
       disliked_queries.push(disliked[i].movie.query)
     }
 
-    // for(let i = 0; movies.length > i; i++){
-    //   if(liked_queries.includes(movies[i].id)){
-    //     movies[i]['liked'] = true
-    //     movies[i]['disliked'] = false
-    //   }
-    //   else if(disliked_queries.includes(movies[i].id)){
-    //     movies[i]['disliked'] = true
-    //     movies[i]['liked'] = false
-    //   }
-    //   else{
-    //     movies[i]['liked'] = false
-    //     movies[i]['disliked'] = false
-    //   }
-    // }
-    
+    for(let i = 0; movies.length > i; i++){
+      if(liked_queries.includes(movies[i].id)){
+        movies[i]['liked'] = true
+        movies[i]['disliked'] = false
+      }
+      else if(disliked_queries.includes(movies[i].id)){
+        movies[i]['disliked'] = true
+        movies[i]['liked'] = false
+      }
+      else{
+        movies[i]['liked'] = false
+        movies[i]['disliked'] = false
+      }
+    }
   }
 
  const getUserMovies = () => {
-  // recieves user movies liked and disliked 
   const uuid = localStorage.getItem('uuid')
   const options = {
    method: 'GET',
@@ -112,8 +90,6 @@ const Catalog = ({movies, seenMovies}) => {
 
 
  const renderMovies = () => {
-  //  console.log(userMovies)
-  likeCount()
   if(!userMovies['likes'] || !userMovies['dislikes']){
     getUserMovies()
   }

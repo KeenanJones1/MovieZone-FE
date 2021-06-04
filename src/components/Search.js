@@ -8,7 +8,7 @@ import axios from 'axios'
   color: white;
  `
 
-const Search = ({setMovies, likesCount}) => {
+const Search = ({configMovies}) => {
  const [title, setTitle] = useState('')
  const [seenMovies, setSeenMovies] = useState([])
 
@@ -24,9 +24,8 @@ const movieFetch = (data) => {
   }
 
   axios.request(options).then((resp) => 
-   likesCount(resp.data.movies)
+    configMovies(resp.data.movies, data.titles)
   ).catch((error) => console.log(error))
-  setMovies(data.titles)
 }
  
 
