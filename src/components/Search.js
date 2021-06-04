@@ -12,6 +12,8 @@ const Search = ({configMovies}) => {
  const [title, setTitle] = useState('')
  const [seenMovies, setSeenMovies] = useState([])
 
+
+//  fetch movies from backend 
 const movieFetch = (data) => {
  const movieQueries = []
  const uuid = localStorage.getItem('uuid')
@@ -24,6 +26,7 @@ const movieFetch = (data) => {
   }
 
   axios.request(options).then((resp) => 
+    // sending both movies list to Home component to be combined
     configMovies(resp.data.movies, data.titles)
   ).catch((error) => console.log(error))
 }
@@ -31,6 +34,7 @@ const movieFetch = (data) => {
 
 
 
+// fetch movies from rapid-api
  const handleForm = (e) => {
   e.preventDefault()
   const options = {

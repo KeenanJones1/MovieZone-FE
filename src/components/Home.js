@@ -21,7 +21,9 @@ const Home = () => {
  const [uuid, setUuid] = useState('')
  const [movies, setMovies] = useState([])
  const [seenMovies, setSeenMovies] = useState([])
+ const [rapidMovies, setRapidMovies] = useState([])
 
+//  checking if user has a uuid in the localstorage, if not create an uuid and set to localStorage. 
  const checkLocalStorage = () => {
   let userCode = localStorage.getItem('uuid')
   if(userCode){
@@ -51,38 +53,50 @@ const Home = () => {
   checkLocalStorage()
  })
 
- // add the like and dislike count to movies
- const likesCount = (data) => {
-  setSeenMovies(data)
+ // add movies to the state
+ const configMovies = (backendData, rapidData) => {
+  if(backendData.length == 0){
+    let newData = [...rapidData]
+    newData.map(movie => {
+      movie['up_count'] = 0
+      movie['down_count'] = 0
+      movie['liked'] = false
+      movie['disliked'] = false
+    })
+    setMovies(newData)
+  }else{
+    let configedMovies = []
+    for(let i in rapidData){
+      let backendMovie = backendData.find(movie => movie['query'] === rapidData[i].id)
+      if(backendMovie){
+        let tempObj = {...rapidData[i]}
+        tempObj['up_count'] = backendMovie['up_count']
+        tempObj['down_count'] = backendMovie['down_count']
+        configedMovies.push(tempObj)
+      }else{
+        let tempObj = {...rapidData[i]}
+        tempObj['up_count'] = 0
+        tempObj['down_count'] = 0
+        configedMovies.push(tempObj)
+      }
+    }
+    setMovies(configedMovies)
+  }
  }
 
-const configMovies = (myBackendList, rapidApiList) => {
-  likesCount(myBackendList)
-  let configedMovies = []
-  for(let i = 0; i < rapidApiList.length; i++){
-    if(myBackendList.find(movie => movie['query'] === rapidApiList[i].id)){
-      let backendMovie = myBackendList.find(movie => movie['query'] === rapidApiList[i].id)
-      let tempObj = {...rapidApiList[i]}
-      tempObj['up_count'] = backendMovie['up_count']
-      tempObj['down_count'] = backendMovie['down_count']
-      configedMovies.push(tempObj)
-    }else{
-      let tempObj = {...rapidApiList[i]}
-      tempObj['up_count'] = 0
-      tempObj['down_count'] = 0
-      configedMovies.push(tempObj)
-    }
-  }
-
-  setMovies(configedMovies)
-}
-
-
+ const updateMovie = (c) => {
+   console.log(c)
+  let movie = movies.find(movie => movie.id === c.query)
+  movie['up_count'] = c.up_count
+  movie['down_count'] = c.down_count
+  let newMovies = [...movies]
+  setMovies(newMovies)
+ }
 
  return (
   <Wrapper>
-    <Header configMovies={configMovies}/>
-    <Movies movies={movies} seenMovies={seenMovies}/>
+    <Header configMovies={configMovies} />
+    <Movies movies={movies} seenMovies={seenMovies} updateMovie={updateMovie}/>
   </Wrapper>
  )
 }

@@ -15,8 +15,6 @@ const Wrapper = styled.div`
 `
 
 const Header = ({configMovies}) => {
- // make fetch here 
- // update with the movies
 
  
  return (

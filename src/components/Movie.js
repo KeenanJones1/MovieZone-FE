@@ -74,7 +74,7 @@ const Wrapper = styled.div`
 
 `
 
-const Movie = ({movie}) => {
+const Movie = ({movie, updateMovie}) => {
  const [liked, setLiked] = useState(false);
 
  const handleThumbs = (id, name) => {
@@ -86,17 +86,11 @@ const Movie = ({movie}) => {
    data: {uuid: uuid, query: movie.id, thumbs: name, title: movie.title}
   }
   axios.request(options).then((resp) =>{
-   updateMovie(resp.data)
-
+    updateMovie(resp.data.movie)
   }).catch((err) => console.log(err))
  }
 
- const updateMovie = (updatedMovie) => {
-  movie.like_count = updatedMovie.up_count
-  movie.down_count = updatedMovie.down_count
- }
 
-console.log('bar')
  return (
   <Wrapper>
    <div className="img-container">
