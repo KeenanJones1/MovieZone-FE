@@ -100,7 +100,7 @@ const Movie = ({movie, updateMovie}) => {
    data: {uuid: uuid, query: movie.id, thumbs: name, title: movie.title}
   }
   axios.request(options).then((resp) =>{
-    updateMovie(resp.data.movie)
+    await updateMovie(resp.data.movie)
   }).catch((err) => console.log(err))
  }
 

@@ -71,7 +71,6 @@ const Catalog = ({movies, updateMovie}) => {
         newMovies.push(temp)
       }
       else{
-        console.log(movies[i])
         let temp = {...movies[i]}
         temp['liked'] = false
         temp['disliked'] = false
@@ -90,6 +89,7 @@ const Catalog = ({movies, updateMovie}) => {
    headers: {'Content-Type': 'application/json'},
   }
     axios.request(options).then((resp) =>{
+      console.log(resp)
      checkUserMovies(resp.data.likes, resp.data.dislikes, movies)
     }).catch((err) => console.log(err))
  }
