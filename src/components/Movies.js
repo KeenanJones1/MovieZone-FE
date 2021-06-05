@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import axios from 'axios'
 import styled from 'styled-components'
 import Movie from './Movie'
@@ -41,15 +41,16 @@ const Wrapper = styled.div`
 
 const Catalog = ({movies, updateMovie}) => {
   const [userMovies, setUserMovies] = useState({})
-
+  const [newMovies, setNewMovies] = useState([])
 
   // checking if any movie from the api, has been liked or disliked by user 
   const checkUserMovies = (liked, disliked, movies) => {
     // queries are an unique string from the rapid api 
     let liked_queries = []
     let disliked_queries = []
-    console.log(liked, disliked)
+    let newMovies = []
     setUserMovies({likes: liked, dislikes: disliked})
+
     for(let i = 0; liked.length > i; i++){
       liked_queries.push(liked[i].movie.query)
     }
@@ -60,18 +61,26 @@ const Catalog = ({movies, updateMovie}) => {
 
     for(let i = 0; movies.length > i; i++){
       if(liked_queries.includes(movies[i].id)){
-        movies[i]['liked'] = true
-        movies[i]['disliked'] = false
+        let temp = {...movies[i]}
+        temp['liked'] = true
+        temp['disliked'] = false
+        newMovies.push(temp)
       }
       else if(disliked_queries.includes(movies[i].id)){
-        movies[i]['disliked'] = true
-        movies[i]['liked'] = false
+        let temp = {...movies[i]}
+        temp['disliked'] = true
+        temp['liked'] = false
+        newMovies.push(temp)
       }
       else{
-        movies[i]['liked'] = false
-        movies[i]['disliked'] = false
+        console.log(movies[i])
+        let temp = {...movies[i]}
+        temp['liked'] = false
+        temp['disliked'] = false
+        newMovies.push(temp)
       }
     }
+    setNewMovies(newMovies)
   }
 
   // getting movies liked and disliked by user from past
@@ -93,15 +102,21 @@ const Catalog = ({movies, updateMovie}) => {
 
 // render movie component, after checking if user has liked  or disliked in the past. 
  const renderMovies = () => {
-  if(!userMovies['likes'] || !userMovies['dislikes']){
-    getUserMovies()
-  }
-  return movies.map(movie => 
-    <Movie movie={movie} className="movie" key={movie.id} updateMovie={updateMovie}/>
-   )
+   if(newMovies.length > 0){
+     return newMovies.map( movie => 
+      <Movie movie={movie} className="movie" key={movie.id} updateMovie={updateMovie}/>
+     )
+   }else{
+    return movies.map( movie => 
+      <Movie movie={movie} className="movie" key={movie.id} updateMovie={updateMovie}/>
+     )
+   }
  }
 
 
+useEffect(() => {
+  getUserMovies()
+}, [movies])
 
  return (
   <Wrapper>

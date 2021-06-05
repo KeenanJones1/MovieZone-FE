@@ -40,7 +40,6 @@ const Home = () => {
    localStorage.setItem('uuid', userCode)
 
    // start loading animation here
-
    axios.request(options).then((response) => {
      console.log(response.data)
      // stop loading animation here
@@ -85,7 +84,6 @@ const Home = () => {
  }
 
  const updateMovie = (c) => {
-   console.log(c)
   let movie = movies.find(movie => movie.id === c.query)
   movie['up_count'] = c.up_count
   movie['down_count'] = c.down_count
