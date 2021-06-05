@@ -86,7 +86,7 @@ const Catalog = ({movies, updateMovie}) => {
   const uuid = localStorage.getItem('uuid')
   const options = {
    method: 'GET',
-   url: `http://localhost:3000/users/${uuid}/`,
+   url: `https://pacific-beach-65675.herokuapp.com/users/${uuid}/`,
    headers: {'Content-Type': 'application/json'},
   }
     axios.request(options).then((resp) =>{

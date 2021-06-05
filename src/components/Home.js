@@ -29,7 +29,7 @@ const Home = () => {
    userCode = v4()
    const options = {
     method: 'POST',
-    url: 'http://localhost:3000/users',
+    url: 'https://pacific-beach-65675.herokuapp.com//users',
     headers: {'Content-Type': 'application/json'},
     data: {uuid: userCode}
    }

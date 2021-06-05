@@ -95,7 +95,7 @@ const Movie = ({movie, updateMovie}) => {
   const uuid = localStorage.getItem('uuid')
   const options = {
    method: 'POST',
-   url: `http://localhost:3000/movies/`,
+   url: `https://pacific-beach-65675.herokuapp.com/movies/`,
    headers: {'Content-Type': 'application/json'},
    data: {uuid: uuid, query: movie.id, thumbs: name, title: movie.title}
   }

@@ -62,7 +62,7 @@ const movieFetch = (data) => {
   data.titles.map( query => movieQueries.push(query.id))
   const options = {
    method: 'GET',
-   url: `http://localhost:3000/movies/`,
+   url: `https://pacific-beach-65675.herokuapp.com/movies/`,
    headers: {'Content-Type': 'application/json'},
    params: {queries: movieQueries, uuid: uuid}
   }
