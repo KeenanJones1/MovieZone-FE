@@ -79,6 +79,7 @@ const movieFetch = (data) => {
 // fetch movies from rapid-api
  const handleForm = (e) => {
   e.preventDefault()
+  console.log(process.env.REACT_APP_API_BASE_URL)
   const options = {
    method: 'GET',
    url: `${process.env.REACT_APP_API_BASE_URL}search/${title}`,
