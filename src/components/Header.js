@@ -2,7 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 import Search from './Search'
 import {colors} from '../utils/_var'
-import moduleName from 'module'
+
 
 const Wrapper = styled.div`
  display: flex;
@@ -12,6 +12,12 @@ const Wrapper = styled.div`
  padding: 1rem;
  color: white;
  background-color: ${colors.$background};
+
+ h1{
+  font-size: 3.5rem;
+  width: 30vw;
+  margin: 1rem;
+ }
 `
 
 const Header = ({configMovies}) => {

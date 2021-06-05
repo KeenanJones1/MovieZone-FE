@@ -18,16 +18,13 @@ const Wrapper = styled.div`
 
 
 const Home = () => {
- const [uuid, setUuid] = useState('')
  const [movies, setMovies] = useState([])
- const [seenMovies, setSeenMovies] = useState([])
- const [rapidMovies, setRapidMovies] = useState([])
 
 //  checking if user has a uuid in the localstorage, if not create an uuid and set to localStorage. 
  const checkLocalStorage = () => {
   let userCode = localStorage.getItem('uuid')
   if(userCode){
-   setUuid(userCode)
+   return null
   }else{
    userCode = v4()
    const options = {
@@ -40,11 +37,11 @@ const Home = () => {
    localStorage.setItem('uuid', userCode)
 
    // start loading animation here
+
    axios.request(options).then((response) => {
      console.log(response.data)
      // stop loading animation here
    }).catch((error) => console.log(error))
-   setUuid(userCode)
   }
  }
 
@@ -54,7 +51,7 @@ const Home = () => {
 
  // add movies to the state
  const configMovies = (backendData, rapidData) => {
-  if(backendData.length == 0){
+  if(backendData.length === 0){
     let newData = [...rapidData]
     newData.map(movie => {
       movie['up_count'] = 0
@@ -83,6 +80,7 @@ const Home = () => {
   }
  }
 
+//  update movie up count or down count
  const updateMovie = (c) => {
   let movie = movies.find(movie => movie.id === c.query)
   movie['up_count'] = c.up_count
@@ -94,7 +92,7 @@ const Home = () => {
  return (
   <Wrapper>
     <Header configMovies={configMovies} />
-    <Movies movies={movies} seenMovies={seenMovies} updateMovie={updateMovie}/>
+    <Movies movies={movies} updateMovie={updateMovie}/>
   </Wrapper>
  )
 }

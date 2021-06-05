@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
 import {colors} from '../utils/_var'
@@ -8,7 +8,7 @@ import { faThumbsUp, faThumbsDown } from '@fortawesome/free-solid-svg-icons'
 const Wrapper = styled.div`
  color: white;
  width: 325px;
- margin: 1rem;
+ margin: 1em 2rem 0 0;
  position: relative;
  transition: all ease-in-out 0.3s;
  cursor: pointer;
@@ -30,7 +30,7 @@ const Wrapper = styled.div`
 }
 
  img{
-  height: 430px;
+  height: 420px;
   background-color: beige;
   overflow-y: hidden;
   position: relative;
@@ -48,22 +48,37 @@ const Wrapper = styled.div`
 
  .movie-thumbs{
   font-weight: bold;
-  padding: 5px 10px;
+  padding: 4px 10px;
   background-color: ${colors.$secondary};
   color: #f5cc5b;
   border-radius: 5px;
+  display:flex;
+  flex-direction: row;
+  
+  p{
+    padding: 0 1em;
+    margin: 0;
+  }
 
   .icons{
-   margin-right: 1.5em;
-   padding-left: 1em;
+    margin: 0;
+    padding: 0 1em;
+   /* margin: 1.5em; */
+   /* padding-left: 1em; */
   }
 
   .icon-liked{
-   color: ${colors.$primary}
+   color: ${colors.$primary};
+   padding: 0 1em;
+   /* margin: 1.5em; */
+   /* padding-left: 1em; */
   }
 
   .icon-disliked{
-   color: ${colors.$primary}
+   color: ${colors.$primary};
+   padding: 0 1em;
+   /* margin: 1.5em; */
+   /* padding-left: 1em; */
   }
 
 
@@ -75,7 +90,6 @@ const Wrapper = styled.div`
 `
 
 const Movie = ({movie, updateMovie}) => {
- const [liked, setLiked] = useState(false);
 
  const handleThumbs = (id, name) => {
   const uuid = localStorage.getItem('uuid')
@@ -90,7 +104,6 @@ const Movie = ({movie, updateMovie}) => {
   }).catch((err) => console.log(err))
  }
 
-
  return (
   <Wrapper>
    <div className="img-container">
@@ -103,11 +116,15 @@ const Movie = ({movie, updateMovie}) => {
     </div>
     <div className="movie-thumbs">
      {/* highlight icon if user has liked or disliked in the past */}
-      <p>{movie.up_count}</p>
-      <FontAwesomeIcon icon={faThumbsUp} className={movie.liked ? 'icon-liked' : 'icons'} onClick={() => handleThumbs(movie.id, 'up')}/>
+      <div className="up">
+        <p>{movie.up_count}</p>
+        <FontAwesomeIcon icon={faThumbsUp} className={movie.liked ? 'icon-liked' : 'icons'} onClick={movie.liked ? null :() => handleThumbs(movie.id, 'up')}/>
+      </div>
 
-  <p>{movie.down_count}</p>
-     <FontAwesomeIcon icon={faThumbsDown} className={movie.disliked ? 'icon-disliked' : 'icons'} onClick={() => handleThumbs(movie.id, 'down')}/>
+      <div className="down">
+        <p>{movie.down_count}</p>
+        <FontAwesomeIcon icon={faThumbsDown} className={movie.disliked ? 'icon-disliked' : 'icons'} onClick={ movie.disliked ? null : () => handleThumbs(movie.id, 'down')}/>
+      </div>
     </div>
    </div>
   </Wrapper>

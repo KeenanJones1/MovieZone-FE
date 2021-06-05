@@ -1,16 +1,58 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import styled from 'styled-components'
 import axios from 'axios'
+import {colors} from '../utils/_var'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSearch, faTimes} from '@fortawesome/free-solid-svg-icons'
 
 
 
  const Wrapper = styled.div`
-  color: white;
+  .movie-search{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50vw;
+    height: 3.5rem;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    background: darkcyan;
+    border-radius: 1rem 1.5rem;
+    box-sizing: border-box;
+    #search-icon{
+      font-size: 1.5rem;
+      color: ghostwhite;
+    }
+    #input-label {
+      display: none;
+    }
+    #search-input{
+      width: 100%;
+      height: 100%;
+      font-size: 1.8rem;
+      color: ghostwhite;
+      padding-left: 1rem;
+      background: darkcyan;
+      border: none;
+      outline: none;
+      &::placeholder {
+        color: ghostwhite;
+        opacity: 0.7;
+      }
+    }
+    #clear{
+      cursor: pointer;
+    }
+  }
+
+  @media(max-width: 768px){
+    .movie-search{
+      width: 80vw;
+    }
+  }
  `
 
 const Search = ({configMovies}) => {
  const [title, setTitle] = useState('')
- const [seenMovies, setSeenMovies] = useState([])
 
 
 //  fetch movies from backend 
@@ -54,6 +96,7 @@ const movieFetch = (data) => {
  }
 
 
+ console.log(title)
 
 
 
@@ -61,8 +104,12 @@ const movieFetch = (data) => {
  return (
   <Wrapper>
    <form onSubmit={(event) => handleForm(event)}>
-    <input type="text" onChange={(event) => setTitle(event.target.value)}/>
-    <input type="submit" value="submit" />
+      <div className="movie-search">
+        <FontAwesomeIcon icon={faSearch} id='search-icon' />
+        <label for="movie-search" id="input-label">Movie Search</label>
+        <input type="text" placeholder="Search Movies" name='movie-search' id='search-input' onChange={(event) => setTitle(event.target.value)} value={title}/>
+        <FontAwesomeIcon icon={faTimes} id="clear" onClick={() => setTitle('')}/>
+      </div>
    </form>
   </Wrapper>
  )

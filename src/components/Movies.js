@@ -40,7 +40,6 @@ const Wrapper = styled.div`
 
 
 const Catalog = ({movies, updateMovie}) => {
-  const [userMovies, setUserMovies] = useState({})
   const [newMovies, setNewMovies] = useState([])
 
   // checking if any movie from the api, has been liked or disliked by user 
@@ -49,7 +48,6 @@ const Catalog = ({movies, updateMovie}) => {
     let liked_queries = []
     let disliked_queries = []
     let newMovies = []
-    setUserMovies({likes: liked, dislikes: disliked})
 
     for(let i = 0; liked.length > i; i++){
       liked_queries.push(liked[i].movie.query)

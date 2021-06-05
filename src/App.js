@@ -6,8 +6,7 @@ class App extends Component {
   constructor(){
     super()
     this.state = {
-      // welcome: false,
-      welcome: true,
+      welcome: false,
     }
   }
 
@@ -20,17 +19,10 @@ class App extends Component {
   render() {
     return (
       <div>
-        {/* { this.state.welcome ?  <Home /> : <Welcome setWelcome={this.setWelcome}/>} */}
-        <Home />
+        { this.state.welcome ?  <Home /> : <Welcome setWelcome={this.setWelcome}/>}
       </div>
     )
   }
 }
 
 export default App
-
-// showing search bar 
-// showing a fetched movie 
-// showing results of a search
-// showing movie card
-// 
