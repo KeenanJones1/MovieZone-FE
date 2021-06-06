@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react'
+import PropTypes from 'prop-types'
 import axios from 'axios'
 import styled from 'styled-components'
 import Movie from './Movie'
@@ -39,7 +40,7 @@ const Wrapper = styled.div`
 `
 
 
-const Catalog = ({movies, updateMovie}) => {
+const Movies = ({movies, updateMovie}) => {
   const [newMovies, setNewMovies] = useState([])
 
   // checking if any movie from the api, has been liked or disliked by user 
@@ -89,7 +90,6 @@ const Catalog = ({movies, updateMovie}) => {
    headers: {'Content-Type': 'application/json'},
   }
     axios.request(options).then((resp) =>{
-      console.log(resp)
      checkUserMovies(resp.data.likes, resp.data.dislikes, movies)
     }).catch((err) => console.log(err))
  }
@@ -125,4 +125,8 @@ useEffect(() => {
  )
 }
 
-export default Catalog
+export default Movies
+
+Movies.propTypes = {
+  movies: PropTypes.array.isRequired
+};

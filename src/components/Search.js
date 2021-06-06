@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import propTypes from 'prop-types'
 import styled from 'styled-components'
 import axios from 'axios'
 import {colors} from '../utils/_var'
@@ -62,7 +63,7 @@ const movieFetch = (data) => {
   data.titles.map( query => movieQueries.push(query.id))
   const options = {
    method: 'GET',
-   url: `https://pacific-beach-65675.herokuapp.com/movies/`,
+   url: `http://localhost:3000/movies/`,
    headers: {'Content-Type': 'application/json'},
    params: {queries: movieQueries, uuid: uuid}
   }
@@ -97,8 +98,6 @@ const movieFetch = (data) => {
  }
 
 
- console.log(title)
-
 
 
 
@@ -117,3 +116,8 @@ const movieFetch = (data) => {
 }
 
 export default Search
+
+
+Search.propTypes = {
+  configMovies: propTypes.func.isRequired
+}

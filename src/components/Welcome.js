@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react'
+import propTypes from 'prop-types';
 import styled from 'styled-components'
+import logo from '../utils/images/MovieZone.png'
 import {useTransition, animated} from 'react-spring'
 
 const Wrapper = styled.div`
@@ -32,6 +34,7 @@ const Container = styled.div`
 
 
 
+
 const Welcome = ({setWelcome}) => {
  const [items, setItems] = useState([])
 
@@ -56,17 +59,22 @@ const Welcome = ({setWelcome}) => {
 
 
 
-
-
-
  return (
   <Wrapper>
    <Container>
     {
      transition((style, item) => item ? <animated.h1 style={style}className="item">{item.text}</animated.h1> : '')}
+
+     {transition((style, item) => item ? <animated.img src={logo} style={style}></animated.img> : null)}
    </Container>
   </Wrapper>
  )
 }
 
+Welcome.propTypes = {
+  setWelcome: propTypes.func.isRequired
+}
+
 export default Welcome
+
+

@@ -1,4 +1,5 @@
 import React from 'react'
+import propTypes from 'prop-types'
 import styled from 'styled-components'
 import axios from 'axios'
 import {colors} from '../utils/_var'
@@ -12,6 +13,7 @@ const Wrapper = styled.div`
  position: relative;
  transition: all ease-in-out 0.3s;
  cursor: pointer;
+ padding-left: 40px;
 
  .movie-content{
   background-color: ${colors.$background};
@@ -63,22 +65,16 @@ const Wrapper = styled.div`
   .icons{
     margin: 0;
     padding: 0 1em;
-   /* margin: 1.5em; */
-   /* padding-left: 1em; */
   }
 
   .icon-liked{
-   color: ${colors.$primary};
+   color: ${colors.$highlight};
    padding: 0 1em;
-   /* margin: 1.5em; */
-   /* padding-left: 1em; */
   }
 
   .icon-disliked{
-   color: ${colors.$primary};
+   color: ${colors.$highlight};
    padding: 0 1em;
-   /* margin: 1.5em; */
-   /* padding-left: 1em; */
   }
 
 
@@ -95,7 +91,7 @@ const Movie = ({movie, updateMovie}) => {
   const uuid = localStorage.getItem('uuid')
   const options = {
    method: 'POST',
-   url: `https://pacific-beach-65675.herokuapp.com/movies/`,
+   url: `http://localhost:3000/movies/`,
    headers: {'Content-Type': 'application/json'},
    data: {uuid: uuid, query: movie.id, thumbs: name, title: movie.title}
   }
@@ -104,6 +100,8 @@ const Movie = ({movie, updateMovie}) => {
   }).catch((err) => console.log(err))
  }
 
+ console.log(movie)
+ 
  return (
   <Wrapper>
    <div className="img-container">
@@ -132,3 +130,7 @@ const Movie = ({movie, updateMovie}) => {
 }
 
 export default Movie
+
+Movie.propTypes = {
+  movie: propTypes.object
+}

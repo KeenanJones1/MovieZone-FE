@@ -4,6 +4,7 @@ const colors = {
  $white: '#EEEEEE',
  $primary: '#EE4540',
  $secondary: '#801336',
+ $highlight: '#008B8B',
 }
 
 const spacing = {
