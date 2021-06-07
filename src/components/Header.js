@@ -2,7 +2,7 @@ import React from 'react'
 import propTypes from 'prop-types'
 import styled from 'styled-components'
 import Search from './Search'
-import {colors, shadows} from '../utils/_var'
+import {colors} from '../utils/_var'
 import img from '../utils/images/MovieZone.png'
 
 
@@ -21,6 +21,7 @@ const Wrapper = styled.div`
   font-size: 3.5rem;
   width: 30vw;
   margin: 1rem;
+  padding-left: 8rem;
  }
 
 

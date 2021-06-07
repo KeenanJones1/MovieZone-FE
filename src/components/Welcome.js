@@ -39,7 +39,7 @@ const Welcome = ({setWelcome}) => {
  const [items, setItems] = useState([])
 
  useEffect(() => {
-  const timeout = setTimeout(() => setItems(v => v.length ? [] : [{y: 0, delay:100, text: 'Welcome'}, {y: 0, delay: 300, text: 'To' }, {y: 0, delay:500, text: 'The Movie Zone'}]), 3000)
+  const timeout = setTimeout(() => setItems(v => v.length ? [] : [{y: 200, delay:100, text: 'Welcome'}, {y: 200, delay: 300, text: 'To' }, {y: 200, delay:500, text: 'The Movie Zone'}]), 3000)
 
   setTimeout(() => setWelcome(), 8000)
 

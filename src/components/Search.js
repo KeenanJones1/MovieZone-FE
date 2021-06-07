@@ -2,7 +2,6 @@ import React, {useState} from 'react'
 import propTypes from 'prop-types'
 import styled from 'styled-components'
 import axios from 'axios'
-import {colors} from '../utils/_var'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faSearch, faTimes} from '@fortawesome/free-solid-svg-icons'
 
@@ -80,7 +79,6 @@ const movieFetch = (data) => {
 // fetch movies from rapid-api
  const handleForm = (e) => {
   e.preventDefault()
-  console.log(process.env.REACT_APP_API_BASE_URL)
   const options = {
    method: 'GET',
    url: `${process.env.REACT_APP_API_BASE_URL}search/${title}`,

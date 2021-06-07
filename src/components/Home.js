@@ -29,17 +29,17 @@ const Home = () => {
    userCode = v4()
    const options = {
     method: 'POST',
-    url: 'https://pacific-beach-65675.herokuapp.com//users',
+    url: 'http://localhost:3000/users',
     headers: {'Content-Type': 'application/json'},
     data: {uuid: userCode}
    }
 
-   localStorage.setItem('uuid', userCode)
+
 
    // start loading animation here
 
    axios.request(options).then((response) => {
-     console.log(response.data)
+     localStorage.setItem('uuid', userCode)
      // stop loading animation here
    }).catch((error) => console.log(error))
   }
@@ -88,6 +88,7 @@ const Home = () => {
   let newMovies = [...movies]
   setMovies(newMovies)
  }
+
 
  return (
   <Wrapper>

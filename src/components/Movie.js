@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import propTypes from 'prop-types'
 import styled from 'styled-components'
 import axios from 'axios'
@@ -23,6 +23,13 @@ const Wrapper = styled.div`
   padding: 0;
   width: 100%;
   flex-direction: column;
+  .movie-overview{
+    margin-bottom: 1em;
+    padding-left: 1rem;
+    overflow-y: scroll;
+    max-height: 8rem;
+    min-height: 8rem;
+  }
  }
 
 
@@ -86,6 +93,7 @@ const Wrapper = styled.div`
 `
 
 const Movie = ({movie, updateMovie}) => {
+  const [movieDetails, setMovieDetails] = useState({})
 
  const handleThumbs = (id, name) => {
   const uuid = localStorage.getItem('uuid')
@@ -100,31 +108,47 @@ const Movie = ({movie, updateMovie}) => {
   }).catch((err) => console.log(err))
  }
 
- console.log(movie)
+ useEffect(() => {
+  const options = {
+    method: 'GET',
+    url: `${process.env.REACT_APP_API_BASE_URL}film/${movie.id}`,
+    headers: {
+     'x-rapidapi-key': process.env.REACT_APP_RAPID_API_KEY,
+     'x-rapidapi-host': process.env.REACT_APP_API_HOST
+    }}
+  axios.request(options).then((resp) => {
+    setMovieDetails(resp.data)
+  })
+ }, [])
  
+
  return (
   <Wrapper>
-   <div className="img-container">
-    <img src={movie.image} alt={movie.title} />
-   </div>
-
-   <div className="movie-content">
-    <div className="movie-name">
-     <h3>{movie.title}</h3>
-    </div>
-    <div className="movie-thumbs">
-     {/* highlight icon if user has liked or disliked in the past */}
-      <div className="up">
-        <p>{movie.up_count}</p>
-        <FontAwesomeIcon icon={faThumbsUp} className={movie.liked ? 'icon-liked' : 'icons'} onClick={movie.liked ? null :() => handleThumbs(movie.id, 'up')}/>
+    <div className="movie-poster">
+      <div className="img-container">
+        <img src={movie.image} alt={movie.title} />
       </div>
+      <div className="movie-content">
+        <div className="movie-name">
+        <h3>{movie.title}</h3>
+        </div>
+        <div className="movie-overview">
+          {movieDetails.plot ? movieDetails.plot : 'Sorry no plot available at this time '}
+        </div>
+        <div className="movie-thumbs">
+        {/* highlight icon if user has liked or disliked in the past */}
+          <div className="up">
+            <p>{movie.up_count}</p>
+            <FontAwesomeIcon icon={faThumbsUp} className={movie.liked ? 'icon-liked' : 'icons'} onClick={movie.liked ? null :() => handleThumbs(movie.id, 'up')}/>
+          </div>
 
-      <div className="down">
-        <p>{movie.down_count}</p>
-        <FontAwesomeIcon icon={faThumbsDown} className={movie.disliked ? 'icon-disliked' : 'icons'} onClick={ movie.disliked ? null : () => handleThumbs(movie.id, 'down')}/>
+          <div className="down">
+            <p>{movie.down_count}</p>
+            <FontAwesomeIcon icon={faThumbsDown} className={movie.disliked ? 'icon-disliked' : 'icons'} onClick={ movie.disliked ? null : () => handleThumbs(movie.id, 'down')}/>
+          </div>
+        </div>
       </div>
     </div>
-   </div>
   </Wrapper>
  )
 }

@@ -7,25 +7,5 @@ const colors = {
  $highlight: '#008B8B',
 }
 
-const spacing = {
 
-}
-
-const fonts = {
-
-}
-
-const transitions = {
-
-}
-
-
-const radius = {
-
-}
-
-const shadows = {
-
-}
-
-export {fonts, colors, transitions, shadows, spacing, radius}
+export {colors}

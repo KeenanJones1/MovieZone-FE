@@ -50,6 +50,7 @@ const Movies = ({movies, updateMovie}) => {
     let disliked_queries = []
     let newMovies = []
 
+
     for(let i = 0; liked.length > i; i++){
       liked_queries.push(liked[i].movie.query)
     }
@@ -86,7 +87,7 @@ const Movies = ({movies, updateMovie}) => {
   const uuid = localStorage.getItem('uuid')
   const options = {
    method: 'GET',
-   url: `https://pacific-beach-65675.herokuapp.com/users/${uuid}/`,
+   url: `http://localhost:3000/users/${uuid}/`,
    headers: {'Content-Type': 'application/json'},
   }
     axios.request(options).then((resp) =>{
@@ -110,7 +111,6 @@ const Movies = ({movies, updateMovie}) => {
      )
    }
  }
-
 
 useEffect(() => {
   getUserMovies()
