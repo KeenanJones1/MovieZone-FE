@@ -23,8 +23,8 @@ Here's the link to the ruby on rails backend https://github.com/KeenanJones1/Mov
 
 ## Lessons Learned
 
-This was project was used as my introduction to react-spring. I wanted to take this opportunity to practice using animations.
-Even though the animations I used were rudimentary I learned the fundamentals and enjoyed myself while doing so. The biggest obstracles this project provided were just understand the flow of API request I wanted to make and where to place them to be most efficient.
+This project was used as an introduction to react-spring. I wanted to take this opportunity to practice using animations.
+Even though the animations I implemented were rudimentary I learned the fundamentals and enjoyed myself while doing so. The biggest obstacles this project provided were understanding the flow of API requests to be most efficient.
 
 ## Demo
 
