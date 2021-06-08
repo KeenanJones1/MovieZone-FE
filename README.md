@@ -1,6 +1,6 @@
 # The Movie Zone (front-end)
 
-A dynamic movie app that receives data from an external RapidApi and an internal API built with Ruby on Rails saves to local storage. Built with React JS, below is a list of the packages and properties used.
+A dynamic movie app that receives data from an external RapidApi and an internal API built with Ruby on Rails that interacts with the local storage. Built with React JS, below is a list of the packages and properties used.
 
 - React Hooks
 - Styled-components
