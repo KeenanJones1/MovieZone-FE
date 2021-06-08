@@ -17,7 +17,7 @@ Link to the rails backend https://github.com/KeenanJones1/MovieZone-BE
 
 ```bash
   npm install
-  cd frontend
+  cd Movie-Zone-FE
   npm start
 ```
 
@@ -55,3 +55,9 @@ Start the server
 ```bash
   npm run start
 ```
+
+## Tech Stack
+
+**Client:** React, Styled-components, React-spring
+
+**Server:** Node
