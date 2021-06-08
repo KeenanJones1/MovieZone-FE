@@ -13,7 +13,7 @@ A dynamic movie app that receives data from an external RapidApi and an internal
 
 Clone the repo from github
 Make sure that the rails backend is running on localhost: 3000 before starting the react server.
-Link to the rails backend https://github.com/KeenanJones1/MovieZone-BE
+Here's the link to the ruby on rails backend https://github.com/KeenanJones1/MovieZone-BE
 
 ```bash
   npm install
