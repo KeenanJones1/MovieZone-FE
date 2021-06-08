@@ -5,7 +5,6 @@ import logo from '../utils/images/MovieZone.png'
 import {useTransition, animated} from 'react-spring'
 
 const Wrapper = styled.div`
- height: 100vh;
  width: 100vw;
  padding: 0;
  margin: 0;
@@ -17,7 +16,7 @@ const Wrapper = styled.div`
 const Container = styled.div`
  color: white;
  min-height: 200px;
- height: 60vh;
+ height: 100vh;
  width: 80vw;
  display: block;
  margin-left: auto;
@@ -28,6 +27,16 @@ const Container = styled.div`
   color: white;
   padding: 0;
   margin: 0;
+ }
+ img{
+   height: 5rem;
+  }
+ 
+
+ @media(min-width: 756px){
+  img{
+   height: 10rem;
+  }
  }
 `
 

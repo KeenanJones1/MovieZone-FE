@@ -40,7 +40,7 @@ const Wrapper = styled.div`
 `
 
 
-const Movies = ({movies, updateMovie}) => {
+const Movies = ({movies, updateMovie, renderModal}) => {
   const [newMovies, setNewMovies] = useState([])
 
   // checking if any movie from the api, has been liked or disliked by user 
@@ -103,11 +103,11 @@ const Movies = ({movies, updateMovie}) => {
  const renderMovies = () => {
    if(newMovies.length > 0){
      return newMovies.map( movie => 
-      <Movie movie={movie} className="movie" key={movie.id} updateMovie={updateMovie}/>
+      <Movie movie={movie} className="movie" key={movie.id} updateMovie={updateMovie} renderModal={renderModal}/>
      )
    }else{
     return movies.map( movie => 
-      <Movie movie={movie} className="movie" key={movie.id} updateMovie={updateMovie}/>
+      <Movie movie={movie} className="movie" key={movie.id} updateMovie={updateMovie} renderModal={renderModal}/>
      )
    }
  }

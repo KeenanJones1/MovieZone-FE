@@ -5,6 +5,7 @@ import styled from 'styled-components'
 import {colors} from '../utils/_var'
 import Header from './Header'
 import Movies from './Movies'
+import Modal from './Modal'
 
 const Wrapper = styled.div`
  background-color: ${colors.$black};
@@ -13,13 +14,15 @@ const Wrapper = styled.div`
  min-height: 100vh;
  padding: 0;
  margin: 0;
+ min-width: 100vw;
 `
 
 
 
 const Home = () => {
  const [movies, setMovies] = useState([])
-
+ const [openModal, setOpenModal] = useState(false)
+ const [modalMovie, setModalMovie] = useState({})
 //  checking if user has a uuid in the localstorage, if not create an uuid and set to localStorage. 
  const checkLocalStorage = () => {
   let userCode = localStorage.getItem('uuid')
@@ -90,10 +93,16 @@ const Home = () => {
  }
 
 
+ const renderModal = (movie) => {
+  setModalMovie(movie)
+  setOpenModal(true)
+ }
+
  return (
   <Wrapper>
     <Header configMovies={configMovies} />
-    <Movies movies={movies} updateMovie={updateMovie}/>
+    <Movies movies={movies} updateMovie={updateMovie} renderModal={renderModal}/>
+    {openModal && modalMovie ? <Modal modalMovie={modalMovie} setOpenModal={setOpenModal}/> : null}
   </Wrapper>
  )
 }
