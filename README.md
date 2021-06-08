@@ -1,25 +1,57 @@
-# Getting Started with Create React App
+# The Movie Zone (front-end)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A dynamic movie app that receives data from an external RapidApi and an internal API built with Ruby on Rails saves to local storage. Built with React JS, below is a list of the packages and properties used.
 
-## Available Scripts
+- React Hooks
+- Styled-components
+- Axios
+- Props-Types
+- React-spring
+- React-Fontawesome
 
-In the project directory, you can run:
+## Installation
 
-### `yarn start`
+Clone the repo from github
+Make sure that the rails backend is running on localhost: 3000 before starting the react server.
+Link to the rails backend https://github.com/KeenanJones1/MovieZone-BE
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+```bash
+  npm install
+  cd frontend
+  npm start
+```
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Lessons Learned
 
-### `yarn test`
+This was project was used as my introduction to react-spring. I wanted to take this opportunity to practice using animations.
+Even though the animations I used were rudimentary I learned the fundamentals and enjoyed myself while doing so. The biggest obstracles this project provided were just understand the flow of API request I wanted to make and where to place them to be most efficient.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Demo
 
-### `yarn build`
+![](https://media4.giphy.com/media/KgJ3X3qSuMSq9VRw94/giphy.gif?cid=790b7611a3e63c3ca6c2e7e872c9bbc9efcd3e2c79b0fdce&rid=giphy.gif&ct=g)
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/KeenanJones1/MovieZone-FE
+```
+
+Go to the project directory
+
+```bash
+  cd frontend
+```
+
+Install dependencies
+
+```bash
+  npm install
+```
+
+Start the server
+
+```bash
+  npm run start
+```
